@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bridgelabs.greetingAppDevelopment.model.GreetedUser;
+import com.bridgelabs.greetingAppDevelopment.model.Greeting;
+import com.bridgelabs.greetingAppDevelopment.repository.GreetingRepoInterface;
 
 @Service
 public class GreetingService {
-
+@Autowired
+GreetingRepoInterface repo;
 
 	public String getMessage() {
 		
@@ -24,6 +27,11 @@ public class GreetingService {
 		return "hello " +lastName;
 		else 
 			return "hello " +firstName+" "+lastName;
+	}
+
+	public void saveMessage(Greeting greet) {
+		repo.save(greet);
+		
 	}
 	
 }
