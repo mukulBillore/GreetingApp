@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bridgelabs.greetingAppDevelopment.model.GreetedUser;
 import com.bridgelabs.greetingAppDevelopment.model.Greeting;
 import com.bridgelabs.greetingAppDevelopment.service.GreetingService;
 
@@ -41,4 +42,14 @@ public class GreetingController {
 	public String sayHelloByService() {
 		return serve.getMessage();
 	}
+	@PostMapping("/getuser")
+	public String sayHelloToUser(@RequestBody GreetedUser user) {
+		return serve.getUser(user);
+	}
+	@PostMapping("/getuser/message")
+	public String sayHelloToUserByRequestparam(@RequestParam(defaultValue="world") String firstName,@RequestParam(defaultValue="") String lastName) {
+		return serve.getMessageByParam(firstName,lastName);
+	}
+	
+	
 }
