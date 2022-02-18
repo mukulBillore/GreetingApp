@@ -29,9 +29,10 @@ GreetingRepoInterface repo;
 			return "hello " +firstName+" "+lastName;
 	}
 
-	public void saveMessage(Greeting greet) {
-		repo.save(greet);
-		
+	public void  saveMessage(Greeting greet) {
+		Greeting newGreeting = new Greeting(greet);
+		repo.save(newGreeting);
+		//return "Sucussed";
 	}
 	
 }

@@ -51,8 +51,9 @@ public class GreetingController {
 		return serve.getMessageByParam(firstName,lastName);
 	}
 	
-	@PostMapping("/postOnRepo")
-	public void postOnRepo(@RequestBody Greeting greet) {
-	 serve.saveMessage(greet);	
+	@PostMapping("/postToRepo")
+	public void  postOnRepo(@RequestBody Greeting greet) {
+	  serve.saveMessage(greet);
+	 //return msg;
 	}
 }
