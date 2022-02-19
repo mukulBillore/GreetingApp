@@ -1,5 +1,6 @@
 package com.bridgelabs.greetingAppDevelopment.controller;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class GreetingController {
 	private final AtomicInteger counter = new AtomicInteger();
 
 	@Autowired
-	GreetingService serve;
+	GreetingService service;
 
 	@GetMapping("/")
 	public String sayHello() {
@@ -37,23 +38,42 @@ public class GreetingController {
 	public String sayHelloByBody(@RequestBody Greeting greeting) {
 		return "hello  " + greeting.getContent() + "id is  " + greeting.getId();
 	}
-	 
+
 	@GetMapping("/getServe")
 	public String sayHelloByService() {
-		return serve.getMessage();
+		return service.getMessage();
 	}
-	@PostMapping("/getuser")
+
+	@PostMapping("/postUser")
 	public String sayHelloToUser(@RequestBody GreetedUser user) {
-		return serve.getUser(user);
+		return service.getUser(user);
 	}
-	@PostMapping("/getuser/message")
-	public String sayHelloToUserByRequestparam(@RequestParam(defaultValue="world") String firstName,@RequestParam(defaultValue="") String lastName) {
-		return serve.getMessageByParam(firstName,lastName);
+
+	@PostMapping("/postUser/message")
+	public String sayHelloToUserByRequestparam(@RequestParam(defaultValue = "world") String firstName,
+			@RequestParam(defaultValue = "") String lastName) {
+		return service.getMessageByParam(firstName, lastName);
+	}
+
+	@PostMapping("/postToRepo")
+	public String postOnRepo(@RequestBody Greeting greet) {
+		service.saveMessage(greet);
+	    return "data is saved successfully";
+	}
+
+	@PutMapping("/retriveData/{id}")
+	public String retriveDataFromRepoByID(@PathVariable int id) {
+		String outPut = service.getDataFromRepo(id);
+		return outPut;
 	}
 	
-	@PostMapping("/postToRepo")
-	public void  postOnRepo(@RequestBody Greeting greet) {
-	  serve.saveMessage(greet);
-	 //return msg;
+	@GetMapping("/findAll")
+	public List<Greeting> getAllGreetings(){
+		return service.findAll();
 	}
+	
+	
+	
+	
+	
 }

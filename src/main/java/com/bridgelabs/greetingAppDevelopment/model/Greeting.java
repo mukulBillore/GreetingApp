@@ -36,6 +36,7 @@ public class Greeting {
 	public Greeting() {
 
 	}
+
 	public Greeting(Greeting greet) {
 		this.content = greet.content;
 	}
